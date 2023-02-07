@@ -1,9 +1,6 @@
-### GENERAL INFORMATION:
-
-- An Example Mod for [MelonLoader](https://github.com/LavaGang/MelonLoader).
-
+###  PartsList
+----
+A mod for [Protobot Beta](https://protobot.web.app/). <br/>
+To learn how to install this mod go to [Melon Loader](https://melonwiki.xyz/#/)
 ---
-
-### LICENSING & CREDITS:
-
-TestMod is licensed under the Apache License, Version 2.0. See [LICENSE](https://github.com/LavaGang/TestMod/blob/master/LICENSE.md) for the full License.
+This mod adds a count for all parts
