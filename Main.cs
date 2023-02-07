@@ -100,7 +100,7 @@ namespace PartsList
         {
             base.OnUpdate();
             tick += 1;
-            if (tick % 120 == 0)
+            if (tick % 30 == 0)
             {
                 ReevaluateLads();
             }
