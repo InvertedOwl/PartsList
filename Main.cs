@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Protobot;
 using HarmonyLib;
+using Protobot.UI;
 
 namespace PartsList
 {
@@ -23,6 +24,8 @@ namespace PartsList
         public static GameObject bg;
         public static GameObject buildCanvas;
         public static GameObject title;
+        public static GameObject newButton;
+        public static bool isBehind = false;
         public static Dictionary<string, int> partCount = new Dictionary<string, int>();
 
         public override void OnSceneWasInitialized(int buildindex, string sceneName) // Runs when a Scene has Initialized and is passed the Scene's Build Index and Name.
@@ -45,11 +48,40 @@ namespace PartsList
             title.GetComponent<Text>().text = "Part                      Count";
             title.GetComponent<Text>().fontSize = 17;
             title.transform.localPosition = new Vector2(0, bg.GetComponent<RectTransform>().sizeDelta.y/2 - 10);
+
+            newButton = new GameObject();
+            newButton.name = "Toggle Button Parts";
+            RectTransform buttonTransform = newButton.AddComponent<RectTransform>();
+            newButton.transform.SetParent(bg.transform);
+            newButton.transform.localPosition = Vector3.zero;
+            buttonTransform.sizeDelta = new Vector2(20, 20);
+            newButton.AddComponent<Image>();
+            //newButton.GetComponent<Image>().type = Image.Type.Simple;
+            newButton.GetComponent<Image>().color = new Color(0.377f, 0.377f, 0.377f, 1);
+            newButton.transform.localPosition = new Vector2(bg.GetComponent<RectTransform>().sizeDelta.x / 2 + 11, bg.GetComponent<RectTransform>().sizeDelta.y / 2 - 20);
+            newButton.AddComponent<Toggle>().onValueChanged.AddListener(delegate
+            {
+                OnValueChanged(newButton.GetComponent<Toggle>());
+            });
             ReevaluateLads();
+        }
+
+        public static void OnValueChanged(Toggle t)
+        {
+            if (t.isOn)
+            {
+                isBehind = true;
+                bg.transform.position = new Vector3(bg.transform.position.x - 250 + 10, bg.transform.position.y);
+            } else
+            {
+                isBehind = false;
+                bg.transform.position = new Vector3(bg.transform.position.x + 250 - 10, bg.transform.position.y);
+            }
         }
 
         public static void ReevaluateLads()
         {
+            if (!isBehind)
             bg.GetComponent<RectTransform>().localPosition = new Vector2(-buildCanvas.GetComponent<RectTransform>().rect.width / 2 + (250 / 2) + 10, -100);
 
             partCount = new Dictionary<string, int>();
@@ -66,7 +98,7 @@ namespace PartsList
                 }
             }
 
-            for (int i = bg.transform.childCount - 1; i > 0; i--)
+            for (int i = bg.transform.childCount - 1; i > 1; i--)
             {
                 GameObject.Destroy(bg.transform.GetChild(i).gameObject);
             }
@@ -92,6 +124,7 @@ namespace PartsList
                 part2.transform.localPosition = new Vector2(0, bg.GetComponent<RectTransform>().sizeDelta.y / 2 - inity);
                 inity += 20;
             }
+            newButton.transform.localPosition = new Vector2(bg.GetComponent<RectTransform>().sizeDelta.x / 2 + 11, bg.GetComponent<RectTransform>().sizeDelta.y / 2 - 20);
 
         }
 
