@@ -1,6 +1,8 @@
 ﻿using MelonLoader;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Protobot;
 
 namespace PartsList
 {
@@ -36,12 +38,28 @@ namespace PartsList
             image.sprite = GameObject.Find("Part Selection").GetComponent<Image>().sprite;
             image.color = GameObject.Find("Part Selection").GetComponent<Image>().color;
             transform.localPosition = new Vector2(-buildCanvas.GetComponent<RectTransform>().rect.width/2 + (80), 0);
-
+            transform.sizeDelta = new Vector2(80, 80);
+            transform.transform.localScale = Vector3.one;
         }
+
+        public Dictionary<string, int> partCount = new Dictionary<string, int>();
 
         public override void OnUpdate()
         {
-            bg.GetComponent<RectTransform>().localPosition = new Vector2(-buildCanvas.GetComponent<RectTransform>().rect.width / 2 + (80), 0);
+            bg.GetComponent<RectTransform>().localPosition = new Vector2(-buildCanvas.GetComponent<RectTransform>().rect.width / 2 + (40), 0);
+
+            partCount = new Dictionary<string, int>();
+
+            foreach (GameObject part in PartsManager.FindLoadedObjects())
+            {
+                if (partCount.ContainsKey(part.name))
+                {
+                    partCount[part.name] = partCount[part.name] + 1;
+                } else
+                {
+                    partCount[part.name] = 1;
+                }
+            }
         }
     }
 }

@@ -28,6 +28,9 @@
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\Protobot.Beta.1.3.1\Beta 1.3.1\Protobot Beta_Data\Managed\Assembly-CSharp.dll</HintPath>
+    </Reference>
     <Reference Include="MelonLoader">
       <HintPath>..\Protobot.Beta.1.3.1\Beta 1.3.1\MelonLoader\MelonLoader.dll</HintPath>
       <Private>False</Private>
